@@ -2,6 +2,7 @@ import {test, expect} from '../fixtures/baseFixture.js';
 import { LoginPage } from '../pages/loginPage.js';
 
 test('verify valid login @login @sanity',async({homePage})=>{
+    await homePage.page.waitForLoadState('domcontentloaded');
     await expect(homePage.page).toHaveTitle('My Account');
     
 })
