@@ -40,23 +40,23 @@ export default defineConfig({
   },
 
   metadata: {
-    appUsername: 'test123@test.com',
-    appPassword: 'test'
+    appUsername: 'kushanchoudhury6@gmail.com',
+    appPassword: 'Vodafone@123'
   },
 
   /* Configure projects for major browsers */
   projects: [
-  // {
-  //   name: 'Google Chrome',
-  //   use: {
-  //     channel: 'chrome',
-  //     viewport: null,
-  //     launchOptions: {
-  //       args: ['--start-maximized'],
-  //       ignoreDefaultArgs: ['--window-size=1280,720']
-  //     }
-  //   }
-  // },
+  {
+    name: 'Google Chrome',
+    use: {
+      channel: 'chrome',
+      viewport: null,
+      launchOptions: {
+        args: ['--start-maximized'],
+        ignoreDefaultArgs: ['--window-size=1280,720']
+      }
+    }
+  },
 
   // {
   //   name: 'Microsoft Edge',
@@ -82,17 +82,17 @@ export default defineConfig({
   //   }
   // },
 
-  {
-    name: 'Firefox',
-    use: {
-      browserName: 'firefox',
-      viewport: { width: 1920, height: 1080 },       
-      launchOptions: {
-        args: [],
-        ignoreDefaultArgs: ['--window-size=1280,720']
-      }
-    }
-  },
+  // {
+  //   name: 'Firefox',
+  //   use: {
+  //     browserName: 'firefox',
+  //     viewport: { width: 1920, height: 1080 },       
+  //     launchOptions: {
+  //       args: [],
+  //       ignoreDefaultArgs: ['--window-size=1280,720']
+  //     }
+  //   }
+  // },
 
   // {
   //   name: 'WebKit',
