@@ -84,7 +84,7 @@ jobs:
 
       - name: 🧪 Run Tests
         run: |
-          npx playwright test LoginPage.spec.ts\
+          npx playwright test \
             --config=playwright.config.${{ github.event.inputs.environment }}.ts \
             --project="${{ github.event.inputs.browser }}"
         env:
