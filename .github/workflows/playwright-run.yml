@@ -124,32 +124,15 @@ jobs:
           ls -R playwright-html-report || echo "Playwright HTML report not available"
 
       # 4️⃣ Prepare combined reports directory for GitHub Pages
-      # 4️⃣ Prepare combined reports directory for GitHub Pages
       - name: Prepare reports for deployment
         run: |
           mkdir -p gh-pages-deploy
-          
-          # Create subdirectories and copy contents properly
-          if [ -d "allure-report" ]; then
-            mkdir -p gh-pages-deploy/allure-report
-            cp -r allure-report/* gh-pages-deploy/allure-report/
-          fi
-          
-          if [ -d "playwright-report" ]; then
-            mkdir -p gh-pages-deploy/playwright-report
-            cp -r playwright-report/* gh-pages-deploy/playwright-report/
-          fi
-          
-          if [ -d "playwright-html-report" ]; then
-            mkdir -p gh-pages-deploy/playwright-html-report
-            cp -r playwright-html-report/* gh-pages-deploy/playwright-html-report/
-          fi
-          
-          # Bypass GitHub Pages Jekyll processing so assets load
-          touch gh-pages-deploy/.nojekyll
-          
+          [ -d "allure-report" ] && cp -r allure-report gh-pages-deploy/ || echo "Skipping allure-report (not found)"
+          [ -d "playwright-report" ] && cp -r playwright-report gh-pages-deploy/ || echo "Skipping playwright-report (not found)"
+          [ -d "playwright-html-report" ] && cp -r playwright-html-report gh-pages-deploy/ || echo "Skipping playwright-html-report (not found)"
           echo "Combined reports directory contents:"
           ls -R gh-pages-deploy
+
 
 
       # 5️⃣ Publish reports to GitHub Pages
