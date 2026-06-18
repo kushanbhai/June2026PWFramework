@@ -25,7 +25,9 @@ export class LoginPage{
 
    //3. Page actions
    async gotoLoginPage(baseUrl: string | undefined){
-       await this.page.goto(baseUrl +'?route=account/login');
+       await this.page.goto(baseUrl +'?route=account/login',{ 
+        waitUntil: 'domcontentloaded' 
+    });
 
    }
   /**
