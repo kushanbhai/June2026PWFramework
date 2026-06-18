@@ -1,3 +1,11 @@
+name: Playwright & Allure Reports
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+
 jobs:
   test:
     runs-on: ubuntu-latest
