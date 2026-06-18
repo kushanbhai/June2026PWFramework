@@ -8,7 +8,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  // retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -62,17 +62,17 @@ export default defineConfig({
     //   }
     // },
 
-    {
-      name: 'Firefox',
-      use: {
-        browserName: 'firefox',
-        viewport: { width: 1920, height: 1080 },       
-        launchOptions: {
-          args: [],
-          ignoreDefaultArgs: ['--window-size=1280,720']
-        }
-      }
-    },
+    // {
+    //   name: 'Firefox',
+    //   use: {
+    //     browserName: 'firefox',
+    //     viewport: { width: 1920, height: 1080 },       
+    //     launchOptions: {
+    //       args: [],
+    //       ignoreDefaultArgs: ['--window-size=1280,720']
+    //     }
+    //   }
+    // },
     // {
     //   name: 'WebKit',
     //   use: {
@@ -97,16 +97,16 @@ export default defineConfig({
     //     }
     //   }
     // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //     viewport: null,
-    //     launchOptions: {
-    //       args: ['--start-maximized'],
-    //       ignoreDefaultArgs: ['--window-size=1280,720']
-    //     }
-    //   }
-    // },
+    {
+      name: 'Google Chrome',
+      use: {
+        channel: 'chrome',
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized'],
+          ignoreDefaultArgs: ['--window-size=1280,720']
+        }
+      }
+    },
   ],
 });
