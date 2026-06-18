@@ -40,7 +40,7 @@ export default defineConfig({
 
 
     trace: 'on-first-retry',
-    headless: false,
+    headless: !!process.env.CI,
     screenshot: 'only-on-failure',
     video: 'on',
     baseURL: 'https://naveenautomationlabs.com/opencart/index.php',
@@ -54,29 +54,29 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // {
-    //   name: 'Chromium',
-    //   use: {
-    //     browserName: 'chromium',
-    //     viewport: { width: 1920, height: 1080 },
-    //     launchOptions: {
-    //       args: [],
-    //       ignoreDefaultArgs: ['--window-size=1280,720']
-    //     }
-    //   }
-    // },
-
     {
-      name: 'Firefox',
+      name: 'Chromium',
       use: {
-        browserName: 'firefox',
-        viewport: { width: 1920, height: 1080 },       
+        browserName: 'chromium',
+        viewport: { width: 1920, height: 1080 },
         launchOptions: {
           args: [],
           ignoreDefaultArgs: ['--window-size=1280,720']
         }
       }
     },
+
+    // {
+    //   name: 'Firefox',
+    //   use: {
+    //     browserName: 'firefox',
+    //     viewport: { width: 1920, height: 1080 },       
+    //     launchOptions: {
+    //       args: [],
+    //       ignoreDefaultArgs: ['--window-size=1280,720']
+    //     }
+    //   }
+    // },
     // {
     //   name: 'WebKit',
     //   use: {
