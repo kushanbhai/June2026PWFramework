@@ -83,6 +83,9 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: always()
+    # 🌟 CRITICAL FIX: Grants the GITHUB_TOKEN write access to push changes to the gh-pages branch
+    permissions:
+      contents: write
 
     steps:
       # 1️⃣ Checkout repo
@@ -132,8 +135,6 @@ jobs:
           [ -d "playwright-html-report" ] && cp -r playwright-html-report gh-pages-deploy/ || echo "Skipping playwright-html-report (not found)"
           echo "Combined reports directory contents:"
           ls -R gh-pages-deploy
-
-
 
       # 5️⃣ Publish reports to GitHub Pages
       - name: Publish Reports to GitHub Pages
