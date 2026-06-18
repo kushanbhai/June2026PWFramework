@@ -36,7 +36,7 @@ export default defineConfig({
 
 
     trace: 'on-first-retry',
-    headless: false,
+    headless: true,
     screenshot: 'only-on-failure',
     video: 'on',
     baseURL: 'https://naveenautomationlabs.com/opencart/index.php',
@@ -62,17 +62,17 @@ export default defineConfig({
     //   }
     // },
 
-    // {
-    //   name: 'Firefox',
-    //   use: {
-    //     browserName: 'firefox',
-    //     viewport: { width: 1920, height: 1080 },       
-    //     launchOptions: {
-    //       args: [],
-    //       ignoreDefaultArgs: ['--window-size=1280,720']
-    //     }
-    //   }
-    // },
+    {
+      name: 'Firefox',
+      use: {
+        browserName: 'firefox',
+        viewport: { width: 1920, height: 1080 },       
+        launchOptions: {
+          args: [],
+          ignoreDefaultArgs: ['--window-size=1280,720']
+        }
+      }
+    },
     // {
     //   name: 'WebKit',
     //   use: {
@@ -97,16 +97,16 @@ export default defineConfig({
     //     }
     //   }
     // },
-    {
-      name: 'Google Chrome',
-      use: {
-        channel: 'chrome',
-        viewport: null,
-        launchOptions: {
-          args: ['--start-maximized'],
-          ignoreDefaultArgs: ['--window-size=1280,720']
-        }
-      }
-    },
+    // {
+    //   name: 'Google Chrome',
+    //   use: {
+    //     channel: 'chrome',
+    //     viewport: null,
+    //     launchOptions: {
+    //       args: ['--start-maximized'],
+    //       ignoreDefaultArgs: ['--window-size=1280,720']
+    //     }
+    //   }
+    // },
   ],
 });
