@@ -22,7 +22,7 @@ Click the badges below to view the latest reports published via GitHub Pages:
 
 ## Notes
 
-- Playwright HTML report is generated automatically from `npx playwright test`.  
-- Allure report is generated from the `allure-results` folder.  
+- Playwright HTML report is generated automatically from `npx playwright test`.
+- Allure report is generated from the `allure-results` folder.
 - Both reports are published to `gh-pages` branch and updated on each workflow run.
-issue with this read me file
+  issue with this read me file

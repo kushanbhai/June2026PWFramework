@@ -1,12 +1,11 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from "@playwright/test";
 
 // If TypeScript doesn't recognize the global `process`, declare it here to
 // avoid requiring @types/node for this config file.
 declare const process: any;
 
-
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -17,39 +16,40 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['html'],
-    ['list'],
-    ['allure-playwright'],
-    ['playwright-html-reporter', {
-      testFolder: 'tests',
-      title: 'OPEN CART HTML Report',
-      project: 'Open Cart',
-      release: '9.87.6',
-      testEnvironment: 'PROD',
-      embedAssets: true,
-      embedAttachments: true,
-      outputFolder: 'playwright-html-report',
-      minifyAssets: true,
-      startServer: false,
-    }]
+    ["html"],
+    ["list"],
+    ["allure-playwright"],
+    [
+      "playwright-html-reporter",
+      {
+        testFolder: "tests",
+        title: "OPEN CART HTML Report",
+        project: "Open Cart",
+        release: "9.87.6",
+        testEnvironment: "PROD",
+        embedAssets: true,
+        embedAttachments: true,
+        outputFolder: "playwright-html-report",
+        minifyAssets: true,
+        startServer: false,
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
-
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
     headless: !!process.env.CI,
-    screenshot: 'only-on-failure',
-    video: 'on',
-    baseURL: 'https://naveenautomationlabs.com/opencart/index.php',
-
+    screenshot: "only-on-failure",
+    video: "on",
+    baseURL: "https://naveenautomationlabs.com/opencart/index.php",
   },
 
   metadata: {
-    appUsername: 'kushanchoudhury6@gmail.com',
-    appPassword: 'Vodafone@123'
+    appUsername: "kushanchoudhury6@gmail.com",
+    appPassword: "Vodafone@123",
   },
 
   /* Configure projects for major browsers */
@@ -67,21 +67,21 @@ export default defineConfig({
     // },
 
     {
-      name: 'Firefox',
+      name: "Firefox",
       use: {
-        browserName: 'firefox',
-        viewport: { width: 1920, height: 1080 },       
+        browserName: "firefox",
+        viewport: { width: 1920, height: 1080 },
         launchOptions: {
           args: [],
-          ignoreDefaultArgs: ['--window-size=1280,720']
-        }
-      }
+          ignoreDefaultArgs: ["--window-size=1280,720"],
+        },
+      },
     },
     // {
     //   name: 'WebKit',
     //   use: {
     //     browserName: 'webkit',
-    //     viewport: { width: 1920, height: 1080 },      
+    //     viewport: { width: 1920, height: 1080 },
     //     launchOptions: {
     //       args: [],
     //       ignoreDefaultArgs: ['--window-size=1280,720']
