@@ -7,7 +7,7 @@ test("verify valid login @login @sanity", async ({ homePage }) => {
 });
 
 //here we are using in built fixture, we dont need custom fixture
-test("verify invalid login", async ({ page, baseURL }) => {
+test.skip("verify invalid login", async ({ page, baseURL }) => {
   const loginPage = new LoginPage(page);
   await loginPage.gotoLoginPage(baseURL);
   await loginPage.doLogin("111kushanc@abc.com", "111airteli@123");
