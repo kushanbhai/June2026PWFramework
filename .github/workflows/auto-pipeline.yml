@@ -140,7 +140,7 @@ jobs:
           rm -rf allure-results playwright-report playwright-html-report test-results
 
       - name: 🧪 Run DEV tests
-        run: npx playwright test --grep "@sample" --config=playwright.config.dev.ts
+        run: npx playwright test --config=playwright.config.dev.ts
         env:
           CI: true
           ALLURE_ENVIRONMENT: DEV
@@ -149,6 +149,7 @@ jobs:
       - name: 🏷️ Add Allure environment info
         if: always()
         run: |
+          mkdir -p allure-results
           echo "Environment=DEV" > allure-results/environment.properties
           echo "Browser=Google Chrome" >> allure-results/environment.properties
           echo "Config=playwright.config.dev.ts" >> allure-results/environment.properties
