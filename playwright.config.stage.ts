@@ -2,7 +2,6 @@ import { defineConfig } from "@playwright/test";
 
 // If TypeScript doesn't recognize the global `process`, declare it here to
 // avoid requiring @types/node for this config file.
-declare const process: any;
 
 export default defineConfig({
   testDir: "./tests",

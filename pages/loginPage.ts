@@ -38,7 +38,7 @@ export class LoginPage {
   async doLogin(email: string, passowrd: string): Promise<HomePage> {
     await this.eleUtil.fill(this.emailId, email);
     await this.eleUtil.fill(this.password, passowrd);
-    await this.eleUtil.click(this.loginBtn, { force: true, timeout: 5000 });
+    await this.eleUtil.click(this.loginBtn, { timeout: 5000 });
     return new HomePage(this.page);
   }
   /**
