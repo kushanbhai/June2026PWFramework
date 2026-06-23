@@ -41,8 +41,8 @@ export default defineConfig({
   },
 
   metadata: {
-    appUsername: "pwtest@nal.com",
-    appPassword: "test123",
+    appUsername: "kushanchoudhury8@gmail.com",
+    appPassword: "Vodafone@123",
   },
 
   /* Configure projects for major browsers */

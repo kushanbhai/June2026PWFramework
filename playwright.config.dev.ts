@@ -41,7 +41,7 @@ export default defineConfig({
   },
 
   metadata: {
-    appUsername: "kushanchoudhury6@gmail.com",
+    appUsername: "kushanchoudhury9@gmail.com",
     appPassword: "Vodafone@123",
   },
 
