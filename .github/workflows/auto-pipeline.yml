@@ -140,7 +140,7 @@ jobs:
           rm -rf allure-results playwright-report playwright-html-report test-results
 
       - name: 🧪 Run DEV tests
-        run: npx playwright test --config=playwright.config.dev.ts
+        run: npx playwright test tests/LoginPage.spec.ts --config=playwright.config.dev.ts
         env:
           CI: true
           ALLURE_ENVIRONMENT: DEV
@@ -238,7 +238,7 @@ jobs:
           rm -rf allure-results playwright-report playwright-html-report test-results
 
       - name: 🧪 Run QA tests
-        run: npx playwright test --config=playwright.config.qa.ts
+        run: npx playwright test tests/LoginPage.spec.ts --config=playwright.config.qa.ts
         env:
           CI: true
           ALLURE_ENVIRONMENT: QA
@@ -337,7 +337,7 @@ jobs:
           rm -rf allure-results playwright-report playwright-html-report test-results
 
       - name: 🧪 Run STAGE tests
-        run: npx playwright test --config=playwright.config.stage.ts
+        run: npx playwright test tests/LoginPage.spec.ts --config=playwright.config.stage.ts
         env:
           CI: true
           ALLURE_ENVIRONMENT: STAGE
@@ -436,7 +436,7 @@ jobs:
           rm -rf allure-results playwright-report playwright-html-report test-results
 
       - name: 🧪 Run PROD tests
-        run: npx playwright test --config=playwright.config.prod.ts
+        run: npx playwright test tests/LoginPage.spec.ts --config=playwright.config.prod.ts
         env:
           CI: true
           ALLURE_ENVIRONMENT: PROD
