@@ -53,29 +53,29 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // {
-    //   name: 'Chromium',
-    //   use: {
-    //     browserName: 'chromium',
-    //     viewport: { width: 1920, height: 1080 },
-    //     launchOptions: {
-    //       args: [],
-    //       ignoreDefaultArgs: ['--window-size=1280,720']
-    //     }
-    //   }
-    // },
-
     {
-      name: "Firefox",
+      name: 'Chromium',
       use: {
-        browserName: "firefox",
+        browserName: 'chromium',
         viewport: { width: 1920, height: 1080 },
         launchOptions: {
           args: [],
-          ignoreDefaultArgs: ["--window-size=1280,720"],
-        },
-      },
+          ignoreDefaultArgs: ['--window-size=1280,720']
+        }
+      }
     },
+
+    // {
+    //   name: "Firefox",
+    //   use: {
+    //     browserName: "firefox",
+    //     viewport: { width: 1920, height: 1080 },
+    //     launchOptions: {
+    //       args: [],
+    //       ignoreDefaultArgs: ["--window-size=1280,720"],
+    //     },
+    //   },
+    // },
     // {
     //   name: 'WebKit',
     //   use: {
