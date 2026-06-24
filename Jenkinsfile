@@ -79,7 +79,7 @@ pipeline {
             }
             post {
                 always {
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -144,7 +144,7 @@ pipeline {
                     '''
 
                     // Publibat DEV Allure HTML Report
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -154,7 +154,7 @@ pipeline {
                         reportTitles: 'DEV Allure Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -164,7 +164,7 @@ pipeline {
                         reportTitles: 'DEV Playwright Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -220,7 +220,7 @@ pipeline {
                     '''
 
                     // Publibat QA Allure HTML Report
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -230,7 +230,7 @@ pipeline {
                         reportTitles: 'QA Allure Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -240,7 +240,7 @@ pipeline {
                         reportTitles: 'QA Playwright Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -296,7 +296,7 @@ pipeline {
                     '''
 
                     // Publibat STAGE Allure HTML Report
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -306,7 +306,7 @@ pipeline {
                         reportTitles: 'STAGE Allure Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -316,7 +316,7 @@ pipeline {
                         reportTitles: 'STAGE Playwright Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -372,7 +372,7 @@ pipeline {
                     '''
 
                     // Publibat PROD Allure HTML Report
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -382,7 +382,7 @@ pipeline {
                         reportTitles: 'PROD Allure Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -392,7 +392,7 @@ pipeline {
                         reportTitles: 'PROD Playwright Report'
                     ])
 
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
