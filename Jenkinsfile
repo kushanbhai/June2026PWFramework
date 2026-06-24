@@ -2,7 +2,7 @@
 // PLAYWRIGHT AUTO PIPELINE - JENKINSFILE
 // ============================================
 // Flow: lint → dev → qa → stage → prod (automatic)
-// Trigger: Push, PR, or manual build
+// Trigger: Pubat, PR, or manual build
 // Reports: Separate Allure per environment, Playwright HTML, Custom HTML
 // ✅ ESLint static code analysis
 // ✅ Separate Allure reports per environment
@@ -19,7 +19,7 @@
 // ------------------------------------
 // - NodeJS Plugin
 // - Allure Jenkins Plugin
-// - HTML Publisher Plugin
+// - HTML Publibater Plugin
 // - Slack Notification Plugin
 // - Email Extension Plugin
 // - Pipeline Stage View Plugin
@@ -38,7 +38,7 @@ pipeline {
         PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}/.cache/ms-playwright"
         SLACK_WEBHOOK_URL = credentials('slack-webhook-token')
         // Email recipients - update these with your actual email addresses
-        EMAIL_RECIPIENTS = 'kushanchoudhury6@gmail.com, kushanchow3@gmail.com'
+        EMAIL_RECIPIENTS = 'kubatanchoudhury6@gmail.com, kubatanchow3@gmail.com'
     }
 
     options {
@@ -57,29 +57,29 @@ pipeline {
                 echo '============================================'
                 echo '📥 Installing dependencies...'
                 echo '============================================'
-                sh 'npm ci'
+                bat 'npm ci'
 
                 echo '============================================'
                 echo '📁 Creating ESLint report directory...'
                 echo '============================================'
-                sh 'mkdir -p eslint-report'
+                bat 'mkdir -p eslint-report'
 
                 echo '============================================'
                 echo '🔍 Running ESLint...'
                 echo '============================================'
                 script {
-                    def eslintStatus = sh(script: 'npm run lint', returnStatus: true)
+                    def eslintStatus = bat(script: 'npm run lint', returnStatus: true)
                     env.ESLINT_STATUS = eslintStatus == 0 ? 'success' : 'failure'
                 }
 
                 echo '============================================'
                 echo '📊 Generating ESLint HTML Report...'
                 echo '============================================'
-                sh 'npm run lint:report || true'
+                bat 'npm run lint:report || true'
             }
             post {
                 always {
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -107,18 +107,18 @@ pipeline {
                 echo '============================================'
                 echo '🎭 Installing Playwright browsers...'
                 echo '============================================'
-                sh 'npx playwright install --with-deps chromium'
+                bat 'npx playwright install --with-deps chromium'
 
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                sh 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running DEV tests...'
                 echo '============================================'
                 script {
-                    env.DEV_TEST_STATUS = sh(
+                    env.DEV_TEST_STATUS = bat(
                         script: 'npx playwright test --grep "@login" --config=playwright.config.dev.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -127,7 +127,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                sh '''
+                bat '''
                     mkdir -p allure-results
                     echo "Environment=DEV" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
@@ -137,14 +137,14 @@ pipeline {
             post {
                 always {
                     // Copy and generate DEV Allure Report
-                    sh '''
+                    bat '''
                         mkdir -p allure-results-dev
                         cp -r allure-results/* allure-results-dev/ 2>/dev/null || true
                         npx allure generate allure-results-dev --clean -o allure-report-dev || true
                     '''
 
-                    // Publish DEV Allure HTML Report
-                    publishHTML(target: [
+                    // Publibat DEV Allure HTML Report
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -154,7 +154,7 @@ pipeline {
                         reportTitles: 'DEV Allure Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -164,7 +164,7 @@ pipeline {
                         reportTitles: 'DEV Playwright Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -188,13 +188,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                sh 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running QA tests...'
                 echo '============================================'
                 script {
-                    env.QA_TEST_STATUS = sh(
+                    env.QA_TEST_STATUS = bat(
                         script: 'npx playwright test --grep "@login" --config=playwright.config.qa.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -203,7 +203,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                sh '''
+                bat '''
                     mkdir -p allure-results
                     echo "Environment=QA" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
@@ -213,14 +213,14 @@ pipeline {
             post {
                 always {
                     // Copy and generate QA Allure Report
-                    sh '''
+                    bat '''
                         mkdir -p allure-results-qa
                         cp -r allure-results/* allure-results-qa/ 2>/dev/null || true
                         npx allure generate allure-results-qa --clean -o allure-report-qa || true
                     '''
 
-                    // Publish QA Allure HTML Report
-                    publishHTML(target: [
+                    // Publibat QA Allure HTML Report
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -230,7 +230,7 @@ pipeline {
                         reportTitles: 'QA Allure Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -240,7 +240,7 @@ pipeline {
                         reportTitles: 'QA Playwright Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -264,13 +264,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                sh 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running STAGE tests...'
                 echo '============================================'
                 script {
-                    env.STAGE_TEST_STATUS = sh(
+                    env.STAGE_TEST_STATUS = bat(
                         script: 'npx playwright test --grep "@login" --config=playwright.config.stage.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -279,7 +279,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                sh '''
+                bat '''
                     mkdir -p allure-results
                     echo "Environment=STAGE" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
@@ -289,14 +289,14 @@ pipeline {
             post {
                 always {
                     // Copy and generate STAGE Allure Report
-                    sh '''
+                    bat '''
                         mkdir -p allure-results-stage
                         cp -r allure-results/* allure-results-stage/ 2>/dev/null || true
                         npx allure generate allure-results-stage --clean -o allure-report-stage || true
                     '''
 
-                    // Publish STAGE Allure HTML Report
-                    publishHTML(target: [
+                    // Publibat STAGE Allure HTML Report
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -306,7 +306,7 @@ pipeline {
                         reportTitles: 'STAGE Allure Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -316,7 +316,7 @@ pipeline {
                         reportTitles: 'STAGE Playwright Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -340,13 +340,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                sh 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running PROD tests...'
                 echo '============================================'
                 script {
-                    env.PROD_TEST_STATUS = sh(
+                    env.PROD_TEST_STATUS = bat(
                         script: 'npx playwright test --grep "@login" --config=playwright.config.prod.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -355,7 +355,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                sh '''
+                bat '''
                     mkdir -p allure-results
                     echo "Environment=PROD" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
@@ -365,14 +365,14 @@ pipeline {
             post {
                 always {
                     // Copy and generate PROD Allure Report
-                    sh '''
+                    bat '''
                         mkdir -p allure-results-prod
                         cp -r allure-results/* allure-results-prod/ 2>/dev/null || true
                         npx allure generate allure-results-prod --clean -o allure-report-prod || true
                     '''
 
-                    // Publish PROD Allure HTML Report
-                    publishHTML(target: [
+                    // Publibat PROD Allure HTML Report
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -382,7 +382,7 @@ pipeline {
                         reportTitles: 'PROD Allure Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -392,7 +392,7 @@ pipeline {
                         reportTitles: 'PROD Playwright Report'
                     ])
 
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
@@ -417,7 +417,7 @@ pipeline {
                 echo '📊 Generating Combined Allure Report...'
                 echo '============================================'
 
-                sh '''
+                bat '''
                     # Create combined results directory
                     mkdir -p allure-results-combined
                     
