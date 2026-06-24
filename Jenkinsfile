@@ -62,7 +62,7 @@ pipeline {
                 echo '============================================'
                 echo '📁 Creating ESLint report directory...'
                 echo '============================================'
-                bat 'mkdir -p eslint-report'
+                bat 'mkdir eslint-report'
 
                 echo '============================================'
                 echo '🔍 Running ESLint...'
@@ -531,131 +531,131 @@ ${env.PROD_EMOJI} PROD: ${env.PROD_TEST_STATUS}
                     echo "Slack notification failed: ${e.message}"
                 }
 
-                // Email notification
-                try {
-                    emailext(
-                        subject: "✅ Playwright Tests Passed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
-        .header { background: #27ae60; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
-        .content { background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }
-        .status-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .status-table th, .status-table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-        .status-table th { background: #ecf0f1; }
-        .success { color: #27ae60; font-weight: bold; }
-        .failure { color: #e74c3c; font-weight: bold; }
-        .btn { display: inline-block; padding: 8px 16px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; margin: 3px; font-size: 12px; }
-        .btn-green { background: #27ae60; }
-        .btn-orange { background: #f39c12; }
-        .btn-purple { background: #9b59b6; }
-        .section-title { background: #34495e; color: white; padding: 10px; margin-top: 20px; border-radius: 5px; }
-        .report-grid { display: table; width: 100%; margin: 10px 0; }
-        .report-row { display: table-row; }
-        .report-cell { display: table-cell; padding: 5px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>✅ Playwright Pipeline Results</h1>
-            <h2>All Tests Passed</h2>
-        </div>
-        <div class="content">
-            <h3>📋 Pipeline Information</h3>
-            <table class="status-table">
-                <tr><th>Job</th><td>${env.JOB_NAME}</td></tr>
-                <tr><th>Build</th><td>#${env.BUILD_NUMBER}</td></tr>
-                <tr><th>Branch</th><td>${env.GIT_BRANCH ?: 'N/A'}</td></tr>
-            </table>
+//                 // Email notification
+//                 try {
+//                     emailext(
+//                         subject: "✅ Playwright Tests Passed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+//                         body: """<!DOCTYPE html>
+// <html>
+// <head>
+//     <style>
+//         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+//         .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+//         .header { background: #27ae60; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+//         .content { background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }
+//         .status-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+//         .status-table th, .status-table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+//         .status-table th { background: #ecf0f1; }
+//         .success { color: #27ae60; font-weight: bold; }
+//         .failure { color: #e74c3c; font-weight: bold; }
+//         .btn { display: inline-block; padding: 8px 16px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; margin: 3px; font-size: 12px; }
+//         .btn-green { background: #27ae60; }
+//         .btn-orange { background: #f39c12; }
+//         .btn-purple { background: #9b59b6; }
+//         .section-title { background: #34495e; color: white; padding: 10px; margin-top: 20px; border-radius: 5px; }
+//         .report-grid { display: table; width: 100%; margin: 10px 0; }
+//         .report-row { display: table-row; }
+//         .report-cell { display: table-cell; padding: 5px; }
+//     </style>
+// </head>
+// <body>
+//     <div class="container">
+//         <div class="header">
+//             <h1>✅ Playwright Pipeline Results</h1>
+//             <h2>All Tests Passed</h2>
+//         </div>
+//         <div class="content">
+//             <h3>📋 Pipeline Information</h3>
+//             <table class="status-table">
+//                 <tr><th>Job</th><td>${env.JOB_NAME}</td></tr>
+//                 <tr><th>Build</th><td>#${env.BUILD_NUMBER}</td></tr>
+//                 <tr><th>Branch</th><td>${env.GIT_BRANCH ?: 'N/A'}</td></tr>
+//             </table>
 
-            <h3>🧪 Test Results by Environment</h3>
-            <table class="status-table">
-                <tr>
-                    <th>Environment</th>
-                    <th>Status</th>
-                    <th>Allure Report</th>
-                    <th>Playwright Report</th>
-                    <th>HTML Report</th>
-                </tr>
-                <tr>
-                    <td>🔧 DEV</td>
-                    <td class="success">${env.DEV_TEST_STATUS}</td>
-                    <td><a href="${env.BUILD_URL}DEV_20Allure_20Report" class="btn btn-green">Allure</a></td>
-                    <td><a href="${env.BUILD_URL}DEV_20Playwright_20Report" class="btn">Playwright</a></td>
-                    <td><a href="${env.BUILD_URL}DEV_20HTML_20Report" class="btn btn-orange">HTML</a></td>
-                </tr>
-                <tr>
-                    <td>🔍 QA</td>
-                    <td class="success">${env.QA_TEST_STATUS}</td>
-                    <td><a href="${env.BUILD_URL}QA_20Allure_20Report" class="btn btn-green">Allure</a></td>
-                    <td><a href="${env.BUILD_URL}QA_20Playwright_20Report" class="btn">Playwright</a></td>
-                    <td><a href="${env.BUILD_URL}QA_20HTML_20Report" class="btn btn-orange">HTML</a></td>
-                </tr>
-                <tr>
-                    <td>🎯 STAGE</td>
-                    <td class="success">${env.STAGE_TEST_STATUS}</td>
-                    <td><a href="${env.BUILD_URL}STAGE_20Allure_20Report" class="btn btn-green">Allure</a></td>
-                    <td><a href="${env.BUILD_URL}STAGE_20Playwright_20Report" class="btn">Playwright</a></td>
-                    <td><a href="${env.BUILD_URL}STAGE_20HTML_20Report" class="btn btn-orange">HTML</a></td>
-                </tr>
-                <tr>
-                    <td>🚀 PROD</td>
-                    <td class="success">${env.PROD_TEST_STATUS}</td>
-                    <td><a href="${env.BUILD_URL}PROD_20Allure_20Report" class="btn btn-green">Allure</a></td>
-                    <td><a href="${env.BUILD_URL}PROD_20Playwright_20Report" class="btn">Playwright</a></td>
-                    <td><a href="${env.BUILD_URL}PROD_20HTML_20Report" class="btn btn-orange">HTML</a></td>
-                </tr>
-            </table>
+//             <h3>🧪 Test Results by Environment</h3>
+//             <table class="status-table">
+//                 <tr>
+//                     <th>Environment</th>
+//                     <th>Status</th>
+//                     <th>Allure Report</th>
+//                     <th>Playwright Report</th>
+//                     <th>HTML Report</th>
+//                 </tr>
+//                 <tr>
+//                     <td>🔧 DEV</td>
+//                     <td class="success">${env.DEV_TEST_STATUS}</td>
+//                     <td><a href="${env.BUILD_URL}DEV_20Allure_20Report" class="btn btn-green">Allure</a></td>
+//                     <td><a href="${env.BUILD_URL}DEV_20Playwright_20Report" class="btn">Playwright</a></td>
+//                     <td><a href="${env.BUILD_URL}DEV_20HTML_20Report" class="btn btn-orange">HTML</a></td>
+//                 </tr>
+//                 <tr>
+//                     <td>🔍 QA</td>
+//                     <td class="success">${env.QA_TEST_STATUS}</td>
+//                     <td><a href="${env.BUILD_URL}QA_20Allure_20Report" class="btn btn-green">Allure</a></td>
+//                     <td><a href="${env.BUILD_URL}QA_20Playwright_20Report" class="btn">Playwright</a></td>
+//                     <td><a href="${env.BUILD_URL}QA_20HTML_20Report" class="btn btn-orange">HTML</a></td>
+//                 </tr>
+//                 <tr>
+//                     <td>🎯 STAGE</td>
+//                     <td class="success">${env.STAGE_TEST_STATUS}</td>
+//                     <td><a href="${env.BUILD_URL}STAGE_20Allure_20Report" class="btn btn-green">Allure</a></td>
+//                     <td><a href="${env.BUILD_URL}STAGE_20Playwright_20Report" class="btn">Playwright</a></td>
+//                     <td><a href="${env.BUILD_URL}STAGE_20HTML_20Report" class="btn btn-orange">HTML</a></td>
+//                 </tr>
+//                 <tr>
+//                     <td>🚀 PROD</td>
+//                     <td class="success">${env.PROD_TEST_STATUS}</td>
+//                     <td><a href="${env.BUILD_URL}PROD_20Allure_20Report" class="btn btn-green">Allure</a></td>
+//                     <td><a href="${env.BUILD_URL}PROD_20Playwright_20Report" class="btn">Playwright</a></td>
+//                     <td><a href="${env.BUILD_URL}PROD_20HTML_20Report" class="btn btn-orange">HTML</a></td>
+//                 </tr>
+//             </table>
 
-            <div class="section-title">📊 Quick Links</div>
-            <p style="margin: 15px 0;">
-                <a href="${env.BUILD_URL}allure" class="btn btn-green">📊 Combined Allure Report</a>
-                <a href="${env.BUILD_URL}ESLint_20Report" class="btn btn-purple">🔍 ESLint Report</a>
-                <a href="${env.BUILD_URL}" class="btn">🔗 View Build</a>
-                <a href="${env.BUILD_URL}console" class="btn btn-orange">📋 Console Log</a>
-            </p>
+//             <div class="section-title">📊 Quick Links</div>
+//             <p style="margin: 15px 0;">
+//                 <a href="${env.BUILD_URL}allure" class="btn btn-green">📊 Combined Allure Report</a>
+//                 <a href="${env.BUILD_URL}ESLint_20Report" class="btn btn-purple">🔍 ESLint Report</a>
+//                 <a href="${env.BUILD_URL}" class="btn">🔗 View Build</a>
+//                 <a href="${env.BUILD_URL}console" class="btn btn-orange">📋 Console Log</a>
+//             </p>
 
-            <div class="section-title">📁 All Reports</div>
-            <table class="status-table">
-                <tr><th>Report Type</th><th>DEV</th><th>QA</th><th>STAGE</th><th>PROD</th></tr>
-                <tr>
-                    <td><strong>Allure</strong></td>
-                    <td><a href="${env.BUILD_URL}DEV_20Allure_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}QA_20Allure_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}STAGE_20Allure_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}PROD_20Allure_20Report">View</a></td>
-                </tr>
-                <tr>
-                    <td><strong>Playwright</strong></td>
-                    <td><a href="${env.BUILD_URL}DEV_20Playwright_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}QA_20Playwright_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}STAGE_20Playwright_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}PROD_20Playwright_20Report">View</a></td>
-                </tr>
-                <tr>
-                    <td><strong>Custom HTML</strong></td>
-                    <td><a href="${env.BUILD_URL}DEV_20HTML_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}QA_20HTML_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}STAGE_20HTML_20Report">View</a></td>
-                    <td><a href="${env.BUILD_URL}PROD_20HTML_20Report">View</a></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</body>
-</html>""",
-                        mimeType: 'text/html',
-                        to: env.EMAIL_RECIPIENTS,
-                        from: 'CI Notifications <mail@naveenautomationlabs.com>',
-                        replyTo: 'mail@naveenautomationlabs.com'
-                    )
-                } catch (Exception e) {
-                    echo "Email notification failed: ${e.message}"
-                }
+//             <div class="section-title">📁 All Reports</div>
+//             <table class="status-table">
+//                 <tr><th>Report Type</th><th>DEV</th><th>QA</th><th>STAGE</th><th>PROD</th></tr>
+//                 <tr>
+//                     <td><strong>Allure</strong></td>
+//                     <td><a href="${env.BUILD_URL}DEV_20Allure_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}QA_20Allure_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}STAGE_20Allure_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}PROD_20Allure_20Report">View</a></td>
+//                 </tr>
+//                 <tr>
+//                     <td><strong>Playwright</strong></td>
+//                     <td><a href="${env.BUILD_URL}DEV_20Playwright_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}QA_20Playwright_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}STAGE_20Playwright_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}PROD_20Playwright_20Report">View</a></td>
+//                 </tr>
+//                 <tr>
+//                     <td><strong>Custom HTML</strong></td>
+//                     <td><a href="${env.BUILD_URL}DEV_20HTML_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}QA_20HTML_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}STAGE_20HTML_20Report">View</a></td>
+//                     <td><a href="${env.BUILD_URL}PROD_20HTML_20Report">View</a></td>
+//                 </tr>
+//             </table>
+//         </div>
+//     </div>
+// </body>
+// </html>""",
+//                         mimeType: 'text/html',
+//                         to: env.EMAIL_RECIPIENTS,
+//                         from: 'CI Notifications <mail@naveenautomationlabs.com>',
+//                         replyTo: 'mail@naveenautomationlabs.com'
+//                     )
+//                 } catch (Exception e) {
+//                     echo "Email notification failed: ${e.message}"
+//                 }
             }
         }
 
