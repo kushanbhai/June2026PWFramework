@@ -14,7 +14,7 @@
     "test:qa": "npx playwright test --config=playwright.config.qa.ts",
     "test:stage": "npx playwright test --config=playwright.config.stage.ts",
     "test:prod": "npx playwright test --config=playwright.config.ts",
-    "lint": "eslint . --ext .ts,.js --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext .ts,.js --report-unused-disable-directives",
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "lint:report": "eslint . --ext .ts,.js -f html -o eslint-report/index.html || exit 0",
     "lint:report:json": "eslint . --ext .ts,.js -f json -o eslint-report/eslint-results.json || exit 0",

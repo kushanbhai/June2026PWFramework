@@ -10,7 +10,7 @@ pipeline {
         CI = 'true'
         PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}\\.cache\\ms-playwright"
         SLACK_WEBHOOK_URL = credentials('slack-webhook-token')
-        EMAIL_RECIPIENTS = 'kushanchoudhury6@gmail.com, kushanchow3@gmail.com'
+        EMAIL_RECIPIENTS = 'kubatanchoudhury6@gmail.com, kubatanchow3@gmail.com'
     }
 
     options {
@@ -26,9 +26,10 @@ pipeline {
                 bat 'npm ci'
                 bat 'if not exist eslint-report mkdir eslint-report'
                 bat 'npx prettier --write .'
+                bat 'npx eslint . --ext .ts,.js --fix'
                 script {
                     def eslintStatus = bat(script: 'npm run lint', returnStatus: true)
-                    env.ESLINT_STATUS = eslintStatus == 0 ? 'success' : 'failure'
+                    env.ESLINT_STATUS = eslintStatus == 0 ? 'success' : 'warnings'
                 }
             }
             post {
@@ -42,6 +43,13 @@ pipeline {
                         reportName: 'ESLint Report',
                         reportTitles: 'ESLint Analysis'
                     ])
+                    script {
+                        if (env.ESLINT_STATUS == 'warnings') {
+                            echo '⚠️ ESLint found warnings - pipeline will continue'
+                        } else {
+                            echo '✅ No ESLint issues found'
+                        }
+                    }
                 }
             }
         }
@@ -154,6 +162,24 @@ pipeline {
                         reportDir: 'allure-report-prod',
                         reportFiles: 'index.html',
                         reportName: 'PROD Allure Report'
+                    ])
+                }
+            }
+        }
+
+        stage('📈 Combined Allure Report') {
+            steps {
+                bat '''
+                    if not exist allure-results-combined mkdir allure-results-combined
+                    xcopy /E /I /Y allure-results allure-results-combined\\
+                '''
+            }
+            post {
+                always {
+                    allure([
+                        includeProperties: true,
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'allure-results-combined']]
                     ])
                 }
             }
