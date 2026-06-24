@@ -54,15 +54,15 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'Chromium',
+      name: "Chromium",
       use: {
-        browserName: 'chromium',
+        browserName: "chromium",
         viewport: { width: 1920, height: 1080 },
         launchOptions: {
           args: [],
-          ignoreDefaultArgs: ['--window-size=1280,720']
-        }
-      }
+          ignoreDefaultArgs: ["--window-size=1280,720"],
+        },
+      },
     },
 
     // {
